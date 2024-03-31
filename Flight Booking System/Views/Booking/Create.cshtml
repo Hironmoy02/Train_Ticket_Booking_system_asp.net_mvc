@@ -1,0 +1,330 @@
+﻿@model Rail_Booking_System.Models.Booking
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+    Rail_Booking_System.Models.TRSContext db = new Rail_Booking_System.Models.TRSContext();
+}
+
+<style>
+
+    .pulsa {
+        animation: pulsa 1.4s infinite;
+        min-width: 200px;
+        width: fit-content;
+        border-radius: 9999px;
+    }
+
+    .cta {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: none;
+        border-radius: 9999px;
+        padding: 8px 16px;
+        color: white;
+        font-size: 15px;
+        background: rgb(118, 36, 194);
+        letter-spacing: 0.08em;
+        font-weight: 800;
+        position: relative;
+    }
+
+        .cta:active {
+            animation: pulsa-active .4s infinite;
+        }
+
+    .card {
+        max-width: 469px;
+        margin-left: 295px;
+        border-radius: 1rem;
+        background-color: rgba(31, 41, 55, 1);
+        padding: 1rem;
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        grid-gap: 1rem;
+        gap: 1rem;
+    }
+
+    .image {
+        height: 5rem;
+        width: 9rem;
+        border-radius: 0.5rem;
+        color:white;
+        font-size:small;
+        padding:10px;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .info {
+        height: 7rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .name {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+        display:flex;
+        justify-content:center;
+    }
+
+    .function {
+        font-size: 0.75rem;
+        margin-top: 20px;
+        padding-bottom: 0px;
+        color: rgba(156, 163, 175, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .stats {
+        width: 100%;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: rgba(0, 0, 0, 1);
+    }
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 4px;
+    }
+
+    .state-value {
+        font-weight: 700;
+        color: rgb(118, 36, 194);
+        width: 90%;
+        margin-left: 24px;
+    }
+
+    .request {
+        margin-top: 1.5rem;
+        width: 100%;
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        /*transition: all .3s ease;*/
+        margin-top: 100px;
+        background-color:blueviolet;
+        color:white;
+    }
+
+        .request input {
+            display: flex;
+            color:white;
+            background-color: white;
+            margin-left: 60px;
+        }
+
+
+        .navbar{
+            height:40px
+        }
+
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    .form-control {
+        border-radius: 4px;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        border-radius: 4px;
+        padding: 6px 12px;
+    }
+
+    .validation-summary-errors {
+        color: red;
+        margin-bottom: 20px;
+    }
+
+ 
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .timed {
+        margin-top: -20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .arrow {
+        font-size: 15px;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 10px;
+        margin-top: -30px;
+    }
+
+        .cards .red {
+            background-color: #f43f5e;
+        }
+
+        .cards .blue {
+            background-color: #3b82f6;
+        }
+
+        .cards .green {
+            background-color: #22c55e;
+        }
+
+        .cards .card2 {
+            display: flex;
+            align-items: unset;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 53px;
+            width: 130px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: 400ms;
+        }
+
+            .cards .card2 p.tip {
+                font-size: 1em;
+                font-weight: 700;
+            }
+
+            .cards .card2 p.second-text {
+                font-size: .7em;
+            }
+
+       
+</style>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+<div class="card">
+    <h4 style="padding-top: 12px; padding-bottom: 28px; color: white ">Booking Details</h4>
+    <div class="infos">
+        <div class="image">
+                    <div class="cards">
+                        <div class="card2 red">
+                            <p class="second-text">
+                                @Html.LabelFor(model => model.RailId, "Rail ID: ", htmlAttributes: new { @class = "control-label" })
+                                                        @Model.RailId
+                                                        @Html.HiddenFor(model => model.RailId, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.RailId, "", new { @class = "text-danger" })
+                                                    </p>
+                        </div>
+                        <div class="card2 blue">
+                            <p class="second-text">
+                                @Html.LabelFor(model => model.UserID, "User ID: ", htmlAttributes: new { @class = "control-label" })
+                                                        @Model.UserID
+                                                        @Html.HiddenFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                                                    </p>
+                        </div>
+                        <div class="card2 green">
+                            <p class="second-text">
+                                @Html.LabelFor(model => model.ScheduleId, "Schedule ID: ", htmlAttributes: new { @class = "control-label" })
+                                                        @Model.UserID
+                                                        @Html.HiddenFor(model => model.ScheduleId, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.ScheduleId, "", new { @class = "text-danger" })
+                                                    </p>
+                        </div>
+                    </div>
+
+        </div>
+        <div class="info">
+            <div>
+                <p class="name">
+                    @{
+                        int userId = ViewBag.UserId;
+                        Rail_Booking_System.Models.UserLogin user = db.UserLogins.Find(userId);
+                        string firstName = user.FirstName;
+                    }
+                    @Html.Label("Welcome, " + firstName + "!", htmlAttributes: new { @class = "control-label" })
+                </p>
+                <div class="stats">
+                    <span class="state-value">
+                        @Html.HiddenFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                        @Model.From
+
+                    </span>
+                    <div class="arrow"> 🚂 </div>
+                    <span class="state-value">
+                        @Html.HiddenFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                        @Model.To
+                    </span>
+
+                </div>
+                <p class="function">
+                    @Html.LabelFor(model => model.BookingDate, "Booking Date and Time", htmlAttributes: new { @class = "control-label" })
+                    <div class="timed" style="color:whitesmoke">
+                        @Html.HiddenFor(model => model.BookingDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BookingDate, "", new { @class = "text-danger" })
+                        <br />
+                        @Model.BookingDate
+                    </div>
+                </p>
+            </div>
+ 
+        </div>
+    </div>
+    <button class="request" type="button">
+        @Html.LabelFor(model => model.NumberOfPassengers, htmlAttributes: new { @class = "control-label" })
+        <div>
+            @Html.EditorFor(model => model.NumberOfPassengers, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NumberOfPassengers, "", new { @class = "text-danger" })
+        </div>
+    </button>
+    <br />
+    <div>
+        <div id="pulsa" class="pulsa" style=" margin-left: 120px;">
+            <button id="cta" class="cta">
+                Book
+            </button>
+
+        </div>
+    </div>
+</div>
+
+}

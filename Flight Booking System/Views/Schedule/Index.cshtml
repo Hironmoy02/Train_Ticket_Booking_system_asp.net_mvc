@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Rail_Booking_System.Models.Schedule>
+@{
+    string role = string.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (string)Session["Role"];
+    }
+}
+
+@{
+    ViewBag.Title = "Rail Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    Rail_Booking_System.Models.TRSContext db = new Rail_Booking_System.Models.TRSContext();
+}
+
+<h2 class="h4 mb-3">Rail Schedules</h2>
+@if (role == "Admin")
+{
+    @Html.ActionLink("Add Rail Schedule", "Create", "Schedule", null, new { @class = "btn btn-dark" })
+}
+<br /><br />
+<div>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Arrival Time</th>
+                <th>Departure Time</th>
+                <th>Rail Date</th>
+                <th>Train</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.From</td>
+                    <td>@item.To</td>
+                    <td>@item.ArrivalTime</td>
+                    <td>@item.DepartureTime</td>
+                    <td>@item.RailDate.ToShortDateString()</td>
+                    <td>
+                        @{
+                            Rail_Booking_System.Models.Train al = db.Trains.Find(item.TrainId);
+                            string TrainName = al.TrainName;
+                        }
+                        @TrainName
+                    </td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .h4 {
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+        border-collapse: collapse;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+
+    .thead-light th {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    .table-light tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+</style>

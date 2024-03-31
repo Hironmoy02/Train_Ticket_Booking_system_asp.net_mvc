@@ -1,0 +1,189 @@
+﻿@{ 
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4cff00;
+            background-image: url('../../images/bg images/90576.jpg');
+            background-size: 100vw 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: right;
+            flex-direction:row-reverse;
+            color:transparent;
+            align-items: center;
+            width:80%;
+            height: 55.7vh; 
+            padding-right: 20px;
+            margin-left:300px;
+            margin-top:100px;
+        }
+
+        .card p {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 20px;
+        }
+
+        .card{
+            background-color:transparent;
+            border-color:transparent;
+        }
+
+        .card p.small {
+                font-size: 14px;
+         }
+
+        .go-corner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            background-color: #00838d;
+            border-radius: 0 4px 0 32px;
+        }
+
+        .go-arrow {
+            margin-top: -4px;
+            margin-right: -4px;
+            color: white;
+            font-family: courier, sans;
+        }
+
+        .card1 {
+            display: block;
+            position: relative;
+            width: 300px;
+            background-color: #99b27f;
+            border-radius: 4px;
+            padding: 32px 24px;
+            margin: 12px;
+            text-decoration: none;
+            z-index: 0;
+            overflow: hidden;
+            height: 50px;
+        }
+
+         
+
+            .card1:hover p {
+            
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .card1:hover h3 {
+               
+                color: #fff;
+            }
+
+
+                .card3:hover .go-corner {
+                    transition:  0.3s linear;
+                    opacity: 1;
+                }
+
+ 
+            .card4 .go-corner {
+                background-color: #00838d;
+                height: 100%;
+                width: 16px;
+                padding-right: 9px;
+                border-radius: 0;
+                transform: skew(6deg);
+                margin-right: -36px;
+                align-items: start;
+                background-image: linear-gradient(-45deg, #8f479a 1%, #dc2a74 100%);
+            }
+
+            .card4 .go-arrow {
+                transform: skew(-6deg);
+                margin-left: -2px;
+                margin-top: 9px;
+                opacity: 0;
+            }
+
+
+            .card4 h3 {
+                margin-top: 8px;
+            }
+
+            .card4:hover .go-corner {
+                margin-right: -12px;
+            }
+
+            .card4:hover .go-arrow {
+                opacity: 1;
+            }
+
+       
+
+        .title {
+            color: aliceblue;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container1">
+        <div>
+            <div class="card">
+                <a class="card1" href="/Station">
+                    <p>Station</p>
+                    <div class="go-corner" href="#">
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card1" href="/Trains">
+                    <p>Train</p>
+                    <div class="go-corner" href="#">
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <a class="card1" href="/Rail">
+                    <p>Rail</p>
+                    <div class="go-corner" href="#">
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a class="card1" href="/Schedule">
+                    <p>Schedule</p>
+                    <div class="go-corner" href="#">
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model List<Rail_Booking_System.Models.Station>
+@{
+    String role = String.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (String)Session["Role"];
+    }
+}
+
+<h2 class="h4 mb-3">Stations</h2>
+@if (role == "Admin")
+{
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Add New Station</a>
+    </p>
+}
+
+
+<table class="table table-bordered">
+    <tr class="table-light">
+        <th>Station Name</th>
+        <th>City</th>
+        <th>Country</th>
+
+        @if (role == "Admin")
+        {
+            <th>Actions</th>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StationName</td>
+            <td>@item.City</td>
+            <td>@item.Country</td>
+            <td>
+                @if (role == "Admin")
+                {
+                    <a href="@Url.Action("Edit", new { id = item.StationId })" class="btn btn-primary">Edit</a>
+                }
+
+                @if (role == "Admin")
+                {
+                    <a href="@Url.Action("Delete", new { id = item.StationId })" class="btn btn-danger">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>

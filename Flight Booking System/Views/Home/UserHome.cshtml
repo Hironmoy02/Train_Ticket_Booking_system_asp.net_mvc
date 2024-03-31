@@ -1,0 +1,108 @@
+﻿@model Rail_Booking_System.Models.Booking
+
+@{ 
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+@{
+    Rail_Booking_System.Models.TRSContext db = new Rail_Booking_System.Models.TRSContext();
+
+    int userId = (int)Session["userid"];
+    Rail_Booking_System.Models.UserLogin user = db.UserLogins.Find(userId);
+    string firstName = user.FirstName;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rail Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('/Content/userIndex.jpg');
+            background-size:cover;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-family: Mistral, cursive;
+        }
+
+        .booking-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #d5e8ff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+      
+        .text-center {
+            text-align: center;
+        }
+
+  
+
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Search Rails</h1>
+    <br/>
+    <br/>
+    <div class="booking-form">
+        <h2 class="text-center">Welcome, @firstName!</h2>
+        <form action="@Url.Action("SearchSchedule", "Schedule")" method="post">
+            <div class="form-group">
+                <label for="from">From:</label>
+                @Html.DropDownList("from", (IEnumerable<SelectListItem>)ViewBag.From, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="to">To:</label>
+                @Html.DropDownList("to", (IEnumerable<SelectListItem>)ViewBag.To, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <br />
+            <button class="text-center btn btn-outline-success">
+                SEARCH RAILS
+            </button>
+        </form>
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Rail_Booking_System.Models.Rail>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@{
+    String role = String.Empty;
+    if (Session["Role"] != null)
+    {
+        role = (String)Session["Role"];
+    }
+    Rail_Booking_System.Models.TRSContext db = new Rail_Booking_System.Models.TRSContext();
+}
+
+<h2 class="h4 mb-3">Rails</h2>
+@if (role == "Admin")
+{
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Add New Rail</a>
+    </p>
+}
+
+<table class="table table-bordered">
+    <tr class="table-light">
+        <th>From</th>
+        <th>From Station</th>
+        <th>To</th>
+        <th>To Station</th>
+        <th>Rail Id </th>
+    
+        <th>Train</th>
+        @if (role == "Admin")
+        {
+       <th>Actions</th>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.From</td>
+            <td>
+                @item.FromCode
+            
+            </td>
+            <td>@item.To</td>
+            <td>
+                @item.ToCode
+              
+            </td>
+           
+            <td>@item.RailId</td>
+          
+            <td>
+                @{
+                    Rail_Booking_System.Models.Train al = db.Trains.Find(item.TrainId);
+                }
+                @al.TrainName
+            </td>
+            <td>
+                @if (role == "Admin")
+                {
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Rail", new { id = item.RailId })">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Rail", new { id = item.RailId })">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
